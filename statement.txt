@@ -1,0 +1,5 @@
+Create a scheduled Alert process which is going to notify via email or push message to pubsub topic when there is no data inserted in the BQ table in the last 1 hour. Process should be configurable, scalable so that I can add more tables as a part of configuration and it works for those as well. 
+Functions Framework for local 
+Cloud Functions/Cloud Run
+Cloud Scheduler
+BigQuery
