@@ -1,0 +1,42 @@
+Create a Cloud Function that queries the BQ table for the last inserted data and checks if the time difference between the current time and the latest insertion is greater than 5 minutes.
+If the time difference is greater than 5 minutes, publish a message to a Pub/Sub topic indicating that there has been no data inserted in the BQ table in the last 5 minutes.
+Create a Cloud Scheduler job that triggers the Cloud Function at regular intervals, say every 1 or 2 minutes.
+Create a Pub/Sub subscription that listens to the Pub/Sub topic and triggers an alert when a message is published to the topic.
+Here is a sample implementation in Python:
+
+Create the Cloud Function:
+put the code from code.py to cloud function
+
+
+Deploy the Cloud Function to Google Cloud Functions.
+
+Create the Cloud Scheduler job:
+
+Go to Cloud Scheduler in the Google Cloud Console and click "Create job". Fill in the following details:
+
+Name: The name of your job
+Description: A description of your job (optional)
+Frequency: Select "Custom"
+Cron job syntax: */1 * * * *
+Time zone: Choose the time zone you want to use
+Target: Select "Pub/Sub"
+Topic: Select the topic you created earlier
+Message body: Enter any message (it will not be used)
+Attributes: Leave blank
+Auth header: Leave blank
+Click "Create" to create the job.
+
+Create the Pub/Sub subscription:
+Go to Pub/Sub in the Google Cloud Console and click on the topic you created earlier. Click "Create subscription" and fill in the following details:
+
+Name: The name of your subscription
+Topic: Select the topic you created earlier
+Delivery type: Select "Push"
+Endpoint URL: Enter the URL of the Cloud Function you created earlier
+Acknowledgement deadline: Choose a deadline that suits your needs (e.g. 10 seconds)
+Click "Create" to create the subscription.
+
+When a message is published to the topic, the Cloud Function will be triggered and will publish another message to the same topic if there has been no data inserted in the BQ table in the last 5 minutes. This can trigger an alert or other action based on your needs.
+
+
+
